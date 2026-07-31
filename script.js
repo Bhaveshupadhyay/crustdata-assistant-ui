@@ -53,35 +53,48 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show loading state
         const loadingId = showLoading();
 
-        try {
-            // Send request to API
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: message,
-                    conversation_id: conversationId
-                })
-            });
+        const maxRetries = 3;
+        let retries = 0;
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+        while (retries < maxRetries) {
+            try {
+                // Send request to API
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        conversation_id: conversationId
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // Remove loading
+                removeLoading(loadingId);
+                
+                // Add AI response
+                addAIMessage(data);
+                break; // Success, exit the loop
+                
+            } catch (error) {
+                retries++;
+                console.error(`Error fetching chat response (Attempt ${retries}/${maxRetries}):`, error);
+                
+                if (retries >= maxRetries) {
+                    removeLoading(loadingId);
+                    addMessage('Sorry, I encountered an error while processing your request. Make sure the API is running at https://crustdata-assistant.onrender.com/chat/', 'ai', true);
+                } else {
+                    // Wait for 1 second before retrying
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
             }
-
-            const data = await response.json();
-            
-            // Remove loading
-            removeLoading(loadingId);
-            
-            // Add AI response
-            addAIMessage(data);
-            
-        } catch (error) {
-            console.error('Error fetching chat response:', error);
-            removeLoading(loadingId);
-            addMessage('Sorry, I encountered an error while processing your request. Make sure the API is running at https://crustdata-assistant.onrender.com/chat/', 'ai', true);
         }
     });
 
