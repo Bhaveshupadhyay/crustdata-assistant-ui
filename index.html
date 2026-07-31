@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Using marked.js for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- DOMPurify for security -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Crustdata Assistant</h1>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                Online
+            </div>
+        </header>
+
+        <main id="chat-container" class="chat-container">
+            <div class="welcome-message">
+                <h2>How can I help you today?</h2>
+                <p>Ask me anything or request API information.</p>
+            </div>
+        </main>
+
+        <div class="input-container">
+            <form id="chat-form" class="chat-form">
+                <div class="input-wrapper">
+                    <textarea id="user-input" placeholder="Message Crustdata..." rows="1" autofocus></textarea>
+                    <button type="submit" id="send-btn" class="send-btn" aria-label="Send message" disabled>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 2L11 13M22 2L15 22L11 13M11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+            <div class="footer-text">AI can make mistakes. Consider verifying important information.</div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
