@@ -260,4 +260,17 @@ document.addEventListener('DOMContentLoaded', () => {
              .replace(/"/g, "&quot;")
              .replace(/'/g, "&#039;");
     }
+
+    // Google Analytics: Track all button clicks
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (btn && typeof gtag === 'function') {
+            const btnName = btn.id || btn.getAttribute('aria-label') || btn.innerText.trim() || 'unknown_button';
+            gtag('event', 'button_click', {
+                'button_name': btnName,
+                'button_classes': btn.className,
+                'button_id': btn.id
+            });
+        }
+    });
 });
