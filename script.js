@@ -36,6 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const message = userInput.value.trim();
         if (!message) return;
 
+        // Google Analytics: Track user chat message
+        if (typeof gtag === 'function') {
+            gtag('event', 'chat_message_sent', {
+                'message_content': message,
+                'conversation_id': conversationId
+            });
+        }
+
         // Hide welcome message if it exists
         const welcomeMsg = document.querySelector('.welcome-message');
         if (welcomeMsg) {
