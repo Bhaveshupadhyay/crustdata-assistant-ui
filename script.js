@@ -148,9 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
             rawHtml = `<p>${data.answer.replace(/\\n/g, '<br>')}</p>`;
         }
         
-        // Purify HTML to prevent XSS
+        // Purify HTML to prevent XSS (allowing iframe for video embeds)
         if (typeof DOMPurify !== 'undefined') {
-            contentDiv.innerHTML = DOMPurify.sanitize(rawHtml);
+            contentDiv.innerHTML = DOMPurify.sanitize(rawHtml, {
+                ADD_TAGS: ['iframe'],
+                ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling', 'src', 'width', 'height', 'title']
+            });
         } else {
             contentDiv.innerHTML = rawHtml;
         }
@@ -281,4 +284,57 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // Demo Video Modal Functionality
+    const videoModal = document.getElementById('video-modal');
+    const watchDemoBtn = document.getElementById('watch-demo-btn');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const demoVideoIframe = document.getElementById('demo-video-iframe');
+
+    function openDemoModal() {
+        if (!videoModal || !demoVideoIframe) return;
+        const videoSrc = demoVideoIframe.getAttribute('data-src');
+        if (videoSrc && demoVideoIframe.src !== videoSrc) {
+            demoVideoIframe.src = videoSrc;
+        }
+        videoModal.classList.add('active');
+        videoModal.removeAttribute('aria-hidden');
+    }
+
+    function closeDemoModal() {
+        if (!videoModal || !demoVideoIframe) return;
+        videoModal.classList.remove('active');
+        videoModal.setAttribute('aria-hidden', 'true');
+        demoVideoIframe.src = '';
+        localStorage.setItem('hasSeenDemoVideo', 'true');
+    }
+
+    if (watchDemoBtn) {
+        watchDemoBtn.addEventListener('click', openDemoModal);
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeDemoModal);
+    }
+
+    if (videoModal) {
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeDemoModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                closeDemoModal();
+            }
+        });
+    }
+
+    // Auto-open modal on first website visit
+    if (!localStorage.getItem('hasSeenDemoVideo')) {
+        setTimeout(() => {
+            openDemoModal();
+        }, 500);
+    }
 });

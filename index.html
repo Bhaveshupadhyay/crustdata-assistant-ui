@@ -27,9 +27,17 @@
     <div class="app-container">
         <header class="app-header">
             <h1>Crustdata Assistant</h1>
-            <div class="status-indicator">
-                <span class="status-dot"></span>
-                Online
+            <div class="header-right">
+                <button type="button" id="watch-demo-btn" class="watch-demo-btn" aria-label="Watch demo video">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <span>Watch Demo</span>
+                </button>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    Online
+                </div>
             </div>
         </header>
 
@@ -52,6 +60,33 @@
                 </div>
             </form>
             <div class="footer-text">AI can make mistakes. Consider verifying important information.</div>
+        </div>
+    </div>
+
+    <!-- Demo Video Modal -->
+    <div id="video-modal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Watch a Demo Video</h3>
+                <button type="button" id="close-modal-btn" class="close-modal-btn" aria-label="Close demo video">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-video-container">
+                    <iframe 
+                        id="demo-video-iframe"
+                        src="" 
+                        data-src="https://drive.google.com/file/d/1x3E7ly1cKtVrtXKr9gz6YGHv9kh7e0DU/preview" 
+                        title="Watch a Demo Video"
+                        allow="autoplay; encrypted-media" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
