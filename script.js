@@ -342,6 +342,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const activeLoadingTimers = {};
+
     function showLoading() {
         const id = 'loading-' + Date.now();
         const wrapper = document.createElement('div');
@@ -352,6 +354,9 @@ document.addEventListener('DOMContentLoaded', () => {
         avatar.className = 'message-avatar';
         avatar.textContent = 'AI';
 
+        const groupContainer = document.createElement('div');
+        groupContainer.className = 'loading-container-group';
+
         const loading = document.createElement('div');
         loading.className = 'loading-indicator';
         loading.innerHTML = `
@@ -359,15 +364,39 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="dot"></div>
             <div class="dot"></div>
         `;
+        groupContainer.appendChild(loading);
 
         wrapper.appendChild(avatar);
-        wrapper.appendChild(loading);
+        wrapper.appendChild(groupContainer);
         chatContainer.appendChild(wrapper);
         scrollToBottom();
+
+        // 15-second timer for Render free server spin-up notification
+        activeLoadingTimers[id] = setTimeout(() => {
+            if (document.getElementById(id)) {
+                const notice = document.createElement('div');
+                notice.className = 'render-warning-notice';
+                notice.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>Backend is hosted on a free Render server. Spin-up may take 30-50s on initial load...</span>
+                `;
+                groupContainer.appendChild(notice);
+                scrollToBottom();
+            }
+        }, 15000);
+
         return id;
     }
 
     function removeLoading(id) {
+        if (activeLoadingTimers[id]) {
+            clearTimeout(activeLoadingTimers[id]);
+            delete activeLoadingTimers[id];
+        }
         const loading = document.getElementById(id);
         if (loading) {
             loading.remove();
