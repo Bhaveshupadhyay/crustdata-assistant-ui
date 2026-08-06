@@ -11,6 +11,8 @@ module.exports = merge(common, {
     }),
     new CopyPlugin({
       patterns: [
+        { from: 'styles.css', to: 'styles.css' },
+        { from: 'script.js', to: 'script.js' },
         { from: 'img', to: 'img' },
         { from: 'css', to: 'css' },
         { from: 'js/vendor', to: 'js/vendor' },

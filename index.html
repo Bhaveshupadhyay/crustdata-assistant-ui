@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chat Assistant</title>
+    <title>Crustdata AI Assistant | Developer & API Intelligence</title>
+    <meta name="description" content="AI-powered assistant for Crustdata APIs, real-time data query intelligence, and developer tools.">
+    
+    <!-- Typography: Plus Jakarta Sans & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
-    <!-- Using marked.js for markdown parsing -->
+    
+    <!-- Libraries: marked.js & DOMPurify -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- DOMPurify for security -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 
     <!-- Google tag (gtag.js) -->
@@ -19,62 +23,197 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-TN5ZW0Y0T3');
     </script>
 </head>
 <body>
+    <!-- Background Ambient Glows -->
+    <div class="ambient-glow glow-top-left"></div>
+    <div class="ambient-glow glow-bottom-right"></div>
+
     <div class="app-container">
+        <!-- Header Section -->
         <header class="app-header">
-            <h1>Crustdata Assistant</h1>
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="brand-info">
+                    <h1>Crustdata Assistant</h1>
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Online • API Ready</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="header-right">
-                <a href="https://app.notion.com/p/Crustdata-AI-Assistant-MVP-Memory-Efficient-Rebuild-3af1e96bce41803d89c6c4265d96e809" target="_blank" rel="noopener noreferrer" class="header-link-btn notion-btn" aria-label="Solution Documentation">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <!-- Resume Button -->
+                <button type="button" id="open-resume-btn" class="header-link-btn resume-btn" aria-label="View Resume">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                         <polyline points="14 2 14 8 20 8"></polyline>
                         <line x1="16" y1="13" x2="8" y2="13"></line>
                         <line x1="16" y1="17" x2="8" y2="17"></line>
                     </svg>
+                    <span>Resume</span>
+                </button>
+
+                <!-- Solution Doc Button -->
+                <a href="https://app.notion.com/p/Crustdata-AI-Assistant-MVP-Memory-Efficient-Rebuild-3af1e96bce41803d89c6c4265d96e809" target="_blank" rel="noopener noreferrer" class="header-link-btn notion-btn" aria-label="Solution Documentation">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
                     <span>Solution Doc</span>
                 </a>
+
+                <!-- GitHub Button -->
                 <a href="https://github.com/Bhaveshupadhyay/crustdata-assistant" target="_blank" rel="noopener noreferrer" class="header-link-btn github-btn" aria-label="GitHub Repository">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                     </svg>
                     <span>GitHub</span>
                 </a>
-                <button type="button" id="watch-demo-btn" class="watch-demo-btn" aria-label="Watch demo video">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                <!-- Watch Demo Button -->
+                <button type="button" id="watch-demo-btn" class="header-link-btn watch-demo-btn" aria-label="Watch demo video">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
                     <span>Watch Demo</span>
                 </button>
-                <div class="status-indicator">
-                    <span class="status-dot"></span>
-                    Online
-                </div>
+
+                <!-- Clear Chat Button -->
+                <button type="button" id="clear-chat-btn" class="icon-only-btn" title="New Chat" aria-label="New Chat">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 6h18"></path>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                    </svg>
+                </button>
             </div>
         </header>
 
+        <!-- Main Chat Area -->
         <main id="chat-container" class="chat-container">
             <div class="welcome-message">
-                <h2>How can I help you today?</h2>
-                <p>Ask me anything or request API information.</p>
+                <div class="hero-badge">
+                    <span class="sparkle-icon">✨</span>
+                    <span>AI-Powered Data Intelligence</span>
+                </div>
+                <h2>What would you like to query today?</h2>
+                <p>Ask technical questions about Crustdata APIs, endpoint parameters, authentication, cURL examples, or request developer details.</p>
+                
+                <!-- Quick Prompt Suggestions -->
+                <div class="prompt-chips">
+                    <button type="button" class="prompt-chip" data-prompt="How do I search for companies by domain name in Crustdata API?">
+                        <span class="chip-icon">🔍</span>
+                        <span>Search companies by domain</span>
+                    </button>
+                    <button type="button" class="prompt-chip" data-prompt="Show me a cURL example to query funding data and headcount.">
+                        <span class="chip-icon">⚡</span>
+                        <span>cURL example for funding data</span>
+                    </button>
+                    <button type="button" class="prompt-chip" data-prompt="Tell me about the developer of this application and show his resume.">
+                        <span class="chip-icon">👨‍💻</span>
+                        <span>Developer profile & Resume</span>
+                    </button>
+                    <button type="button" class="prompt-chip" data-prompt="What endpoints are available in Crustdata API?">
+                        <span class="chip-icon">📡</span>
+                        <span>Available Crustdata APIs</span>
+                    </button>
+                </div>
             </div>
         </main>
 
+        <!-- Chat Input Bar -->
         <div class="input-container">
             <form id="chat-form" class="chat-form">
                 <div class="input-wrapper">
-                    <textarea id="user-input" placeholder="Message Crustdata..." rows="1" autofocus></textarea>
+                    <textarea id="user-input" placeholder="Ask Crustdata Assistant anything..." rows="1" autofocus></textarea>
                     <button type="submit" id="send-btn" class="send-btn" aria-label="Send message" disabled>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22 2L11 13M22 2L15 22L11 13M11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </button>
                 </div>
             </form>
-            <div class="footer-text">AI can make mistakes. Consider verifying important information.</div>
+            <div class="footer-text">
+                <span>Crustdata AI Assistant • Powered by Deep Search & RAG</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content resume-modal-content">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <div class="modal-title-icon resume-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Bhavesh Upadhyay — Resume</h3>
+                        <p class="modal-subtitle">Full Stack & AI Engineer Profile</p>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <a href="https://drive.google.com/file/d/1psuwMhUCOEFtkID4runCIIUCe--8jR94/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="modal-action-btn" title="Open in Google Drive">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        <span>Open Drive</span>
+                    </a>
+                    <button type="button" id="close-resume-btn" class="close-modal-btn" aria-label="Close resume modal">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- Profile Highlight Header -->
+                <div class="resume-meta-banner">
+                    <div class="meta-pill">
+                        <span class="dot-green"></span>
+                        <span>Available for FDE or consumer facing roles</span>
+                    </div>
+                    <div class="meta-links">
+                        <a href="https://github.com/Bhaveshupadhyay" target="_blank" rel="noopener noreferrer">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            GitHub Profile
+                        </a>
+                        <a href="https://drive.google.com/file/d/1psuwMhUCOEFtkID4runCIIUCe--8jR94/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Download PDF
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PDF Viewer Iframe -->
+                <div class="resume-frame-container">
+                    <iframe 
+                        id="resume-iframe" 
+                        src=""
+                        data-src="https://drive.google.com/file/d/1psuwMhUCOEFtkID4runCIIUCe--8jR94/preview" 
+                        title="Bhavesh Upadhyay Resume Preview"
+                        allow="autoplay">
+                    </iframe>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -82,7 +221,14 @@
     <div id="video-modal" class="modal-overlay" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Watch a Demo Video</h3>
+                <div class="modal-title-group">
+                    <div class="modal-title-icon video-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                    </div>
+                    <h3>Watch Demo Video</h3>
+                </div>
                 <button type="button" id="close-modal-btn" class="close-modal-btn" aria-label="Close demo video">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -104,6 +250,7 @@
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
